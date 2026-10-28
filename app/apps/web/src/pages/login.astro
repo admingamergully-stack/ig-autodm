@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Log in — IG AutoDM">
+<style>
+.login{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:96px 24px}
+.box{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:48px 32px;max-width:400px;width:100%;text-align:center}
+.badge-row{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.box h1{font-size:32px;font-weight:400;margin-bottom:8px}
+.box p{font-size:14px;margin-bottom:24px}
+.box .btn{width:100%}
+.g-icon{width:18px;height:18px;margin-right:10px;vertical-align:-3px}
+.err{color:var(--error);font-size:13px;margin-top:12px;min-height:18px}
+.fine{margin-top:20px;font-size:12px;color:var(--muted)}
+</style>
+<div class="login"><div class="box">
+<div class="badge-row"><span class="badge">Official Meta API</span><span class="badge">Free to start</span></div>
+<h1>Welcome back</h1>
+<p>Log in with Google, then connect your Instagram in one tap.</p>
+<button id="google-login" class="btn btn-primary"><svg class="g-icon" viewBox="0 0 24 24"><path fill="#fff" d="M21.35 11.1H12v2.9h5.35c-.5 2.4-2.55 3.5-5.35 3.5a5.9 5.9 0 0 1 0-11.8c1.5 0 2.85.55 3.9 1.45l2.05-2.05A8.7 8.7 0 0 0 12 2.5a9.5 9.5 0 0 0 0 19c4.65 0 8.65-3.2 8.65-8.65 0-.6-.1-1.15-.3-1.75z"/></svg>Continue with Google</button>
+<p id="login-err" class="err"></p>
+<p class="fine">No passwords shared with us. Instagram connects later via Meta's secure OAuth.</p>
+</div></div>
+<script>
+import { supabase } from "../lib/supabase";
+const btn = document.getElementById("google-login");
+const err = document.getElementById("login-err");
+btn?.addEventListener("click", async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: `${window.location.origin}/auth/callback` },
+  });
+  if (err) err.textContent = error ? error.message : "";
+});
+</script>
+</Base>

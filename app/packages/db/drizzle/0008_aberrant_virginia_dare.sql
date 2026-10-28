@@ -1,0 +1,1 @@
+ALTER TABLE `media_configs` ADD `link_track` integer;

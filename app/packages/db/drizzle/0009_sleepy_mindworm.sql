@@ -1,0 +1,1 @@
+ALTER TABLE `gate_waits` ADD `attempts` integer;

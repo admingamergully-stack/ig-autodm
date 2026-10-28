@@ -1,0 +1,159 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="IG AutoDM — Instagram Comment to DM Automation">
+<style>
+.hero{padding:96px 0;text-align:center}
+.hero .kicker{display:inline-block;font-size:14px;font-weight:500;color:var(--ink);margin-bottom:20px}
+.hero .kicker .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--success-border);margin-right:8px}
+.hero h1{font-size:40px;line-height:1.2;margin-bottom:20px;max-width:720px;margin-left:auto;margin-right:auto}
+.hero p.sub{font-size:16px;margin:0 auto 36px;max-width:560px}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hero-note{margin-top:16px;font-size:14px;color:var(--muted)}
+.sec{padding:96px 0}
+.sec h2{font-size:32px;line-height:1.2;margin-bottom:16px;text-align:center}
+.sec .lede{text-align:center;margin:0 auto 48px;max-width:600px;font-size:16px}
+/* signature cards */
+.sig{border-radius:12px;padding:48px;color:#fff}
+.sig-coral{background:var(--coral)}
+.sig-dark{background:var(--surface-dark)}
+.sig h2{color:#fff;text-align:left;margin-bottom:12px}
+.sig p{color:rgba(255,255,255,.85);font-size:16px;max-width:520px}
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+/* chat mockup */
+.phone{background:#fff;border-radius:10px;padding:24px;color:var(--ink);max-width:360px;margin-left:auto;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.phone .bar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--surface-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;flex-shrink:0}
+.phone .who b{display:block;font-size:14px;color:var(--ink)}
+.phone .who span{font-size:12px;color:var(--success)}
+.chat{display:flex;flex-direction:column;gap:8px}
+.bubble{max-width:85%;padding:10px 14px;border-radius:10px;font-size:14px;line-height:1.4}
+.bubble.in{background:var(--surface-soft);color:var(--ink);align-self:flex-start}
+.bubble.out{background:var(--ink);color:#fff;align-self:flex-end}
+.bubble .linkbtn{display:block;margin-top:8px;background:rgba(255,255,255,.18);border-radius:6px;padding:8px 12px;font-weight:500;text-align:center}
+.sentpill{align-self:center;font-size:13px;font-weight:500;color:var(--success)}
+/* demo grid */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.tcard{border-radius:10px;padding:24px}
+.tcard.peach{background:var(--peach)} .tcard.mint{background:var(--mint)}
+.tcard.cream{background:var(--cream)} .tcard.yellow{background:var(--yellow)}
+.tcard .mini{background:#fff;border-radius:6px;padding:12px;font-size:13px;margin-bottom:16px;color:var(--ink)}
+.tcard .mini .kw{display:inline-block;background:var(--surface-soft);border:1px solid var(--hairline);border-radius:6px;padding:2px 8px;font-weight:500}
+.tcard h3{font-size:18px;font-weight:500;margin-bottom:6px}
+.tcard p{font-size:14px}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.stepc{background:var(--surface-soft);border-radius:12px;padding:32px}
+.stepc .n{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:12px}
+.stepc h3{font-size:20px;margin-bottom:8px}
+.stepc p{font-size:14px}
+.stepc code{background:#fff;border:1px solid var(--hairline);border-radius:6px;padding:2px 8px;font-size:13px}
+/* cream callout + compare */
+.callout{background:var(--cream);border-radius:10px;padding:48px}
+.cmp{max-width:720px;margin:32px auto 0;border:1px solid var(--hairline);border-radius:10px;overflow:hidden;background:#fff}
+.cmp .crow{display:grid;grid-template-columns:1fr 140px 140px;font-size:14px}
+.cmp .crow > div{padding:12px 20px;border-bottom:1px solid var(--hairline)}
+.cmp .crow:last-child > div{border-bottom:none}
+.cmp .head{background:var(--surface-soft);font-weight:500;color:var(--ink)}
+.cmp .c{text-align:center;font-weight:500}
+.yes{color:var(--success)} .no{color:var(--muted)}
+/* faq */
+.faq{max-width:720px;margin:0 auto}
+.faq details{border:1px solid var(--hairline);border-radius:10px;margin-bottom:12px;padding:18px 20px;background:#fff}
+.faq summary{font-weight:500;font-size:15px;color:var(--ink);cursor:pointer}
+.faq p{margin-top:10px;font-size:14px}
+/* trust */
+.trust{padding:32px 0;text-align:center;color:var(--muted);font-size:14px}
+@media(max-width:900px){
+  .hero h1{font-size:32px}
+  .sig-grid{grid-template-columns:1fr}
+  .phone{margin:0 auto}
+  .grid4{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .sec h2{font-size:28px}
+}
+</style>
+
+<section class="hero"><div class="wrap">
+<span class="kicker"><span class="dot"></span>Official Meta Graph API · No passwords, ever</span>
+<h1>Turn Instagram comments into DMs that sell</h1>
+<p class="sub">Someone comments your keyword on a post or reel — they get your link in their DMs a second later. Set it once, it runs on every post, day and night.</p>
+<div class="hero-cta">
+<a class="btn btn-primary" href="/login">Get started for free</a>
+<a class="btn btn-secondary" href="/dashboard">View dashboard</a>
+</div>
+<p class="hero-note">Free to start · Business or Creator account required</p>
+</div></section>
+
+<section><div class="wrap">
+<div class="sig sig-coral"><div class="sig-grid">
+<div>
+<h2>Every comment answered in seconds.</h2>
+<p>Comment-to-DM runs on every post automatically — public reply plus private message, logged with a reason. You write the words once.</p>
+</div>
+<div class="phone">
+<div class="bar"><div class="avatar">k</div><div class="who"><b>kado.778</b><span>Active now</span></div></div>
+<div class="chat">
+<div class="bubble in"><b>new_follower</b><br />LINK please!</div>
+<div class="sentpill">DM sent automatically</div>
+<div class="bubble out">Hey! Thanks for commenting — here's the link you asked for:<span class="linkbtn">Shop Now →</span></div>
+<div class="bubble in">Omg that was instant, thank you!</div>
+</div>
+</div>
+</div></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+<h2>Reply to anything, automatically</h2>
+<p class="lede">Pick what starts the conversation. IG AutoDM watches every post, reel and story, then sends your DM in seconds.</p>
+<div class="grid4">
+<div class="tcard peach"><div class="mini">@emma.k: this is 🔥 <span class="kw">LINK</span><br /><br />→ Here's your link 👇</div><h3>Reel comments</h3><p>Someone comments your keyword on a reel and instantly gets your link.</p></div>
+<div class="tcard mint"><div class="mini">@noah.m: where's this from? <span class="kw">PRICE</span><br /><br />→ Sent you the details 👇</div><h3>Post comments</h3><p>Every photo and carousel becomes a storefront, replies sent for you.</p></div>
+<div class="tcard cream"><div class="mini">@ava.j: <span class="kw">GUIDE</span> please<br /><br />→ Here's your guide 👇</div><h3>Story replies</h3><p>A reply to your story gets an instant DM back, the moment they react.</p></div>
+<div class="tcard yellow"><div class="mini">@leo.r: <span class="kw">GUIDE</span><br /><br />→ Here you go 👇</div><h3>Keyword DMs</h3><p>A word like GUIDE in your DMs sends the right link back, no typing.</p></div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="sig sig-dark"><div class="sig-grid">
+<div>
+<h2>Three steps. No flowcharts.</h2>
+<p>If you can write a caption, you can set this up. Live on your very next post — connect, write, turn on.</p>
+</div>
+<div>
+<p style="margin-bottom:12px"><b style="color:#fff">1 · Connect your Instagram.</b> One secure tap with the official Meta login.</p>
+<p style="margin-bottom:12px"><b style="color:#fff">2 · Pick a trigger, write your DM.</b> A keyword like <code>LINK</code>, your message, your link — per video or account-wide.</p>
+<p><b style="color:#fff">3 · Turn it on.</b> Automation replies 24/7, public reply plus DM, every send logged.</p>
+</div>
+</div></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+<h2>A link in bio just sits there</h2>
+<p class="lede">IG AutoDM goes and gets the click — in the DM, the second someone comments.</p>
+<div class="callout">
+<div class="cmp">
+<div class="crow head"><div></div><div class="c">IG AutoDM</div><div class="c">By hand</div></div>
+<div class="crow"><div>Replies to every comment instantly</div><div class="c yes">✓</div><div class="c no">—</div></div>
+<div class="crow"><div>Sends the link by DM automatically</div><div class="c yes">✓</div><div class="c no">—</div></div>
+<div class="crow"><div>Works on every post, reel &amp; story</div><div class="c yes">✓</div><div class="c no">—</div></div>
+<div class="crow"><div>Keeps selling 24/7 while you sleep</div><div class="c yes">✓</div><div class="c no">—</div></div>
+<div class="crow"><div>Every send logged with a reason</div><div class="c yes">✓</div><div class="c no">—</div></div>
+</div>
+</div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap">
+<h2>Questions, answered</h2>
+<p class="lede">How it works, what it costs, and what Meta allows.</p>
+<div class="faq">
+<details><summary>How does comment-to-DM work?</summary><p>You set a trigger keyword (like LINK) and a message. When someone comments that keyword, Meta sends our app a webhook, we match it, and reply with a public comment plus a private DM — all through the official Graph API.</p></details>
+<details><summary>Is this safe for my Instagram account?</summary><p>Yes. We use only Meta's official API with your OAuth authorization — no passwords, no browser bots, no scraping. Automation only ever responds to people who engaged with you first, which is exactly what Meta permits.</p></details>
+<details><summary>Do I need a Business or Creator account?</summary><p>Yes — Meta's API doesn't work with personal accounts. Switching is free in Instagram Settings → Account type, and takes two minutes.</p></details>
+<details><summary>What does it cost?</summary><p>Core automation is free while in beta. If we add paid tiers later, pricing will be flat monthly — no per-message fees.</p></details>
+<details><summary>Can I use different messages per video?</summary><p>Yes. Each post or reel gets its own keyword, reply text, DM content, and on/off toggles — with account-wide defaults filling any gaps.</p></details>
+</div>
+</div></section>
+
+<div class="trust"><div class="wrap">Official Meta API · No passwords · Free tier · Built for creators</div></div>
+</Base>

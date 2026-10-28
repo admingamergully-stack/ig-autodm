@@ -1,0 +1,19 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base title="Signing in — IG AutoDM">
+<div style="min-height:60vh;display:flex;align-items:center;justify-content:center">
+<p>Signing you in…</p>
+</div>
+<script>
+import { supabase } from "../../lib/supabase";
+// supabase-js auto-exchanges the OAuth code in the URL on client creation
+supabase.auth.onAuthStateChange((_event, session) => {
+  if (session) window.location.href = "/dashboard";
+});
+setTimeout(async () => {
+  const { data } = await supabase.auth.getSession();
+  window.location.href = data.session ? "/dashboard" : "/login";
+}, 2000);
+</script>
+</Base>

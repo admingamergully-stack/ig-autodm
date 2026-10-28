@@ -1,0 +1,1 @@
+ALTER TABLE `comment_logs` ADD `commenter` text;

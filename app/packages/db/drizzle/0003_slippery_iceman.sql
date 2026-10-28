@@ -1,0 +1,1 @@
+ALTER TABLE `ig_accounts` ADD `via_byok` integer DEFAULT false NOT NULL;

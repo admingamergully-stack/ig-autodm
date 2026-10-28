@@ -1,0 +1,1 @@
+{"name":"apps-api","version":"0.1.0","type":"module","scripts":{"dev":"wrangler dev","build":"tsc --noEmit","deploy":"wrangler deploy"},"dependencies":{"@ig-autodm/db":"*","@ig-autodm/shared":"*","@libsql/client":"^0.15.0","drizzle-orm":"^0.39.0","hono":"^4.7.0"},"devDependencies":{"@cloudflare/workers-types":"^4.20260702.1","typescript":"^5.7.0","wrangler":"^3.114.0"}}

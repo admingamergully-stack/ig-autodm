@@ -1,0 +1,40 @@
+# IG AutoDM links — PRODUCTION (stable, use these in dashboards)
+
+## App (public)
+Dashboard (Connect Instagram button):
+https://ig-autodm.pages.dev/dashboard
+
+Login:
+https://ig-autodm.pages.dev/login
+
+Privacy Policy URL (Meta form):
+https://ig-autodm.pages.dev/privacy
+
+Data deletion URL (Meta form):
+https://ig-autodm.pages.dev/data-deletion
+
+API health check:
+https://ig-autodm-api.admingamergully.workers.dev/health
+
+## Meta dashboard → Instagram → API setup with Instagram login
+3. Webhooks → Callback URL:
+https://ig-autodm-api.admingamergully.workers.dev/webhook/meta
+
+Verify token:
+local_verify_token
+
+Subscribe to field: comments
+
+4. Business login → OAuth redirect URIs:
+https://ig-autodm-api.admingamergully.workers.dev/connect/meta/callback
+
+## Supabase dashboard → Authentication → URL Configuration
+Site URL:
+https://ig-autodm.pages.dev
+
+Additional Redirect URL:
+https://ig-autodm.pages.dev/auth/callback
+
+## Local dev (optional, for coding)
+Web: http://localhost:4321/
+API: http://localhost:8787/health

@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-ink: #181d26;
+  --color-body: #333840;
+  --color-muted: #41454d;
+  --color-canvas: #ffffff;
+  --color-soft: #f8fafc;
+  --color-hairline: #dddddd;
+  --color-coral: #aa2d00;
+  --color-coral-deep: #8a2400;
+  --color-forest: #0a2e0e;
+  --color-forest-light: #14401a;
+  --color-cream: #f5e9d4;
+  --color-cream-deep: #ecdcbf;
+  --color-peach: #fcab79;
+  --color-mint: #a8d8c4;
+  --color-yellow: #f4d35e;
+  --color-link: #1b61c9;
+  --color-success: #006400;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #ffffff;
+  color: var(--color-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Respect reduced motion (mobile battery + a11y) */
+@media (prefers-reduced-motion: reduce) {
+  .chat-msg,
+  .typing-dot,
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+::selection {
+  background: #f4d35e;
+  color: #181d26;
+}
+
+/* Grid blowout guards (hard rule) */
+.grid-guarded > * {
+  min-width: 0;
+  min-height: 0;
+}
+.grid-guarded img {
+  max-width: 100%;
+}
+
+/* Global styles for JS-injected nodes (hard rule analogue) */
+.injected-scope img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Focus visibility */
+:focus-visible {
+  outline: 2px solid #1b61c9;
+  outline-offset: 2px;
+}
+
+/* Chat mockup animation */
+@keyframes chat-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+.chat-msg {
+  animation: chat-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.typing-dot {
+  animation: typing-dot 1.2s infinite;
+}
+
+/* Toggle switch */
+.switch-track {
+  transition: background-color 0.2s ease;
+}
+.switch-thumb {
+  transition: transform 0.2s ease;
+}
+
+/* Accordion */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+}
+.faq-open .faq-answer {
+  grid-template-rows: 1fr;
+}
+.faq-inner {
+  overflow: hidden;
+}
+
+/* Marquee for trust strip */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+/* Thumb ring */
+.post-thumb {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.post-thumb:hover {
+  transform: translateY(-2px);
+}
+
+/* Scrollbar for dashboard */
+.thin-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: #dddddd;
+  border-radius: 8px;
+}

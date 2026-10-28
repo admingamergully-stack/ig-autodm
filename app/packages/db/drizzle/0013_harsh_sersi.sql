@@ -1,0 +1,1 @@
+ALTER TABLE `byok_credentials` ADD `webhook_verified_at` integer;

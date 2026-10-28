@@ -1,0 +1,245 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Dashboard — IG AutoDM">
+<style>
+.dash{padding:48px 0;max-width:760px;margin:0 auto}
+.dash h1{font-size:32px;font-weight:500;letter-spacing:0;margin-bottom:8px}
+.dash .sub{margin-bottom:32px}
+.section{margin-bottom:24px}
+.hero-card{background:var(--forest);color:#fff;border:none;border-radius:12px;padding:48px}
+.hero-card b{color:#fff;font-size:18px;font-weight:500}
+.hero-card .empty{color:rgba(255,255,255,.75)}
+.switchrow{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.bigswitch{display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px;color:#fff;cursor:pointer}
+.bigswitch input{width:44px;height:24px;accent-color:#39bf45;cursor:pointer}
+#activity-line{margin-top:16px}
+.pillok{display:inline-block;background:rgba(57,191,69,.18);color:#7ddf8a;border:1px solid rgba(57,191,69,.5);border-radius:9999px;padding:4px 12px;font-size:13px;font-weight:500;margin-right:8px}
+.pilldm{display:inline-block;background:var(--cream);color:var(--ink);border-radius:9999px;padding:4px 12px;font-size:13px;font-weight:500;margin-right:8px}
+.dim{color:rgba(255,255,255,.65);font-size:13px}
+.btng{background:var(--primary);border:none;color:#fff}
+.btng:hover{background:var(--primary-active)}
+.postcard{border-radius:12px}
+.postcard h2 .tick{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--coral);margin-right:8px}
+.editorcard{background:var(--cream);border:1px solid var(--hairline);border-radius:10px;padding:24px}
+.activity{font-size:14px;margin-top:12px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:14px;font-weight:500;margin-bottom:4px;color:var(--ink)}
+.field input,.field textarea{width:100%;border:1px solid var(--hairline);border-radius:6px;padding:12px 16px;font-size:14px;font-family:inherit;background:#fff;height:auto}
+.field textarea{min-height:64px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:#254fad;box-shadow:0 0 0 2px rgba(69,143,255,.25)}
+.field small{color:var(--muted);font-size:12px}
+.empty{color:var(--muted);font-size:14px}
+</style>
+<style is:global>
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-top:16px;width:100%}
+.mgrid > *{min-width:0;min-height:0}
+.mcard{border:1px solid #dddddd;border-radius:10px;overflow:hidden;cursor:pointer;background:#fff;position:relative;min-width:0}
+.mcard:hover{border-color:#181d26}
+.mcard.sel{border-color:#181d26;border-width:2px}
+.mcard img{width:100%;max-width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#f8fafc}
+.mcard .meta{display:flex;align-items:center;justify-content:space-between;padding:3px 6px;font-size:10px;font-weight:500;color:#41454d}
+.mcard .odot{width:7px;height:7px;border-radius:50%;background:#aa2d00;display:inline-block;margin-right:4px}
+.mcard .plus{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(24,29,38,.8);color:#fff;font-size:14px;line-height:20px;text-align:center;font-weight:500}
+.abtn{background:#fff;border:1px solid #dddddd;border-radius:9999px;padding:6px 14px;font-size:13px;font-weight:500;cursor:pointer;color:#181d26}
+.abtn.sel{background:#181d26;color:#fff;border-color:#181d26}
+.row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #dddddd;font-size:14px}
+.row:last-child{border-bottom:none}
+.badge{display:inline-block;background:#f8fafc;border-radius:9999px;padding:4px 12px;font-size:13px;font-weight:500;color:#181d26}
+</style>
+<div class="dash"><div class="wrap">
+<h1>My Automation</h1>
+<p class="sub">Signed in as <b id="user-email">…</b> · <span id="api-status" class="badge">checking…</span> · <a href="#" id="logout">Log out</a></p>
+
+<div class="section hero-card">
+<div class="switchrow">
+<div><b id="acct-name">…</b><div class="empty" id="acct-sub">connect your Instagram below</div></div>
+<label class="bigswitch"><input id="master" type="checkbox" /> <span id="master-label">Automation on</span></label>
+</div>
+<p class="activity empty" id="activity-line"></p>
+<p id="connect-msg" class="empty"></p>
+<div id="accounts-list"></div>
+<button id="connect-ig" class="btn btng" style="margin-top:16px">Connect Instagram</button>
+</div>
+
+<div class="section card-white postcard" id="posts-card" style="display:none">
+<h2 style="font-size:20px;margin-bottom:4px"><span class="tick"></span>Your posts</h2>
+<p class="empty">Tap a post to set its message. Fill a box = send it, empty = skip it.</p>
+<div id="media-grid" class="mgrid"></div>
+<div id="editor" class="editorcard" style="display:none;margin-top:16px">
+<h3 id="e-title" style="font-size:16px;margin-bottom:12px">This post</h3>
+<div class="field"><label>Only when the comment has this word <small>(empty = every comment)</small></label><input id="e-keyword" type="text" /></div>
+<div class="field"><label>Reply under their comment <small>(empty = don't send)</small></label><textarea id="e-reply"></textarea></div>
+<div class="field"><label>Send them this DM <small>(empty = don't send)</small></label><textarea id="e-dm"></textarea></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<button id="e-save" class="btn btng" style="height:36px">Save for this post</button>
+<button id="e-clear" class="btn btn-secondary" style="height:36px">Remove message</button>
+<span id="e-msg" class="empty"></span>
+</div>
+</div>
+</div>
+
+</div></div>
+<script>
+import { supabase } from "../lib/supabase";
+const { data } = await supabase.auth.getSession();
+if (!data.session) {
+  window.location.href = "/login";
+} else {
+  const email = document.getElementById("user-email");
+  if (email) email.textContent = data.session.user.email ?? data.session.user.id;
+  const API = import.meta.env.PUBLIC_API_BASE;
+  const headers = { Authorization: `Bearer ${data.session.access_token}` };
+  const q = new URLSearchParams(window.location.search);
+  const msg = document.getElementById("connect-msg");
+  if (q.get("connected") === "1" && msg) { msg.textContent = "Instagram connected."; msg.style.color = "var(--success)"; }
+  else if (q.get("connect") === "error" && msg) msg.textContent = "Connection failed: " + (q.get("detail") ?? "retry") + ".";
+  async function api(path, opts = {}) {
+    const res = await fetch(`${API}${path}`, {
+      ...opts,
+      headers: { ...headers, "Content-Type": "application/json", ...(opts.headers ?? {}) },
+    });
+    return res.json().catch(() => ({}));
+  }
+  let allAccounts = [];
+  let sel = null;
+  let mediaItems = [];
+  let selMedia = null;
+  const $ = (id) => document.getElementById(id);
+  // master switch: off pauses everything, on resumes
+  $("master")?.addEventListener("change", async (e) => {
+    const on = e.target.checked;
+    $("master-label").textContent = on ? "Automation on" : "Automation off";
+    const r = await api(`/accounts/${encodeURIComponent(sel)}/defaults`, {
+      method: "PUT",
+      body: JSON.stringify({ replyEnabled: on, dmEnabled: on }),
+    });
+    if (!r.ok) { e.target.checked = !on; $("master-label").textContent = !on ? "Automation on" : "Automation off"; }
+  });
+  async function loadMedia() {
+    const grid = $("media-grid");
+    if (!grid || !sel) return;
+    grid.innerHTML = `<p class="empty">Loading posts…</p>`;
+    const { media } = await api(`/media?account=${encodeURIComponent(sel)}`);
+    mediaItems = media ?? [];
+    grid.innerHTML = mediaItems.length
+      ? mediaItems
+          .map(
+            (m, i) => `<div class="mcard${selMedia === m.mediaId ? " sel" : ""}" data-i="${i}" title="${((m.caption ?? "post") + "").replace(/"/g, "&quot;").slice(0, 120)}">
+              ${m.thumbnailUrl ? `<img src="${m.thumbnailUrl}" alt="" loading="lazy" />` : ""}
+              <span class="plus">+</span>
+              <div class="meta"><span>${m.config ? `<span class="odot"></span>` : ""}R ${m.stats?.replies ?? 0} · D ${m.stats?.dms ?? 0}</span></div>
+            </div>`,
+          )
+          .join("")
+      : `<p class="empty">No posts found.</p>`;
+    grid.querySelectorAll(".mcard").forEach((c) =>
+      c.addEventListener("click", () => openEditor(mediaItems[Number(c.dataset.i)])),
+    );
+  }
+  function openEditor(m) {
+    if (!m) return;
+    selMedia = m.mediaId;
+    document.querySelectorAll(".mcard").forEach((c) => c.classList.remove("sel"));
+    const cfg = m.config ?? {};
+    $("e-title").textContent = `This post — ${(m.caption ?? "no caption").slice(0, 60)}`;
+    $("e-keyword").value = cfg.keyword ?? "";
+    $("e-reply").value = cfg.commentReply ?? "";
+    $("e-dm").value = cfg.dmText ?? "";
+    $("e-msg").textContent = "";
+    $("editor").style.display = "block";
+    document.querySelectorAll(".mcard").forEach((c) => {
+      const it = mediaItems[Number(c.dataset.i)];
+      if (it && it.mediaId === selMedia) c.classList.add("sel");
+    });
+    $("editor").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+  $("e-save")?.addEventListener("click", async () => {
+    const r = await api(`/media-config`, {
+      method: "PUT",
+      body: JSON.stringify({
+        igUserId: sel,
+        mediaId: selMedia,
+        keyword: $("e-keyword").value.trim() || null,
+        commentReply: $("e-reply").value.trim() || null,
+        dmText: $("e-dm").value.trim() || null,
+        replyEnabled: $("e-reply").value.trim() ? true : false,
+        dmEnabled: $("e-dm").value.trim() ? true : false,
+      }),
+    });
+    $("e-msg").textContent = r.ok ? "Saved for this post." : r.error ?? "Save failed.";
+    if (r.ok) loadMedia();
+  });
+  $("e-clear")?.addEventListener("click", async () => {
+    const r = await api(`/media-config`, {
+      method: "PUT",
+      body: JSON.stringify({ igUserId: sel, mediaId: selMedia, clear: true }),
+    });
+    if (r.ok) {
+      $("editor").style.display = "none";
+      loadMedia();
+    }
+  });
+  async function boot() {
+    try {
+      const acc = await (await fetch(`${API}/accounts`, { headers })).json();
+      allAccounts = acc.accounts ?? [];
+      const list = $("accounts-list");
+      if (allAccounts.length) {
+        const a = allAccounts[0];
+        sel = a.igUserId;
+        $("acct-name").textContent = `@${a.username || a.igUserId} ✓ Connected`;
+        $("acct-sub").textContent = "automation " + (a.replyEnabled || a.dmEnabled ? "is on" : "is off");
+        if (list) list.innerHTML = "";
+        $("posts-card").style.display = "block";
+        const on = !!(a.replyEnabled || a.dmEnabled);
+        $("master").checked = on;
+        $("master-label").textContent = on ? "Automation on" : "Automation off";
+        if (allAccounts.length > 1) {
+          list.innerHTML = allAccounts
+            .map((x) => `<button class="abtn${sel === x.igUserId ? " sel" : ""}" data-id="${x.igUserId}">@${x.username || x.igUserId}</button>`)
+            .join("");
+          list.querySelectorAll("button").forEach((b) =>
+            b.addEventListener("click", () => {
+              sel = b.dataset.id;
+              boot();
+            }),
+          );
+        }
+        try {
+          const st = await (await fetch(`${API}/stats`, { headers })).json();
+          $("activity-line").innerHTML =
+            `<span class="pillok">${st.repliesSent7d ?? 0} replies</span><span class="pilldm">${st.dmsSent7d ?? 0} DMs</span><span class="dim">last 7 days</span>`;
+        } catch { /* keep empty */ }
+        await loadMedia();
+      } else {
+        if (list) list.innerHTML = `<p class="empty">No accounts yet — click Connect Instagram below.</p>`;
+      }
+    } catch { /* api down; /me check below reports it */ }
+  }
+  await boot();
+  document.getElementById("connect-ig")?.addEventListener("click", async () => {
+    const res = await fetch(`${API}/connect/meta`, { headers });
+    const { url, error } = await res.json().catch(() => ({}));
+    if (url) window.location.href = url;
+    else if (msg) msg.textContent = error ?? "Could not start connection.";
+  });
+  try {
+    const res = await fetch(`${API}/me`, { headers });
+    const pill = document.getElementById("api-status");
+    if (pill) {
+      pill.textContent = res.ok ? "API connected" : `API: ${res.status}`;
+      pill.style.background = res.ok ? "#d1fae5" : "#fee2e2";
+    }
+  } catch {
+    const pill = document.getElementById("api-status");
+    if (pill) pill.textContent = "API unreachable";
+  }
+}
+document.getElementById("logout")?.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await supabase.auth.signOut();
+  window.location.href = "/login";
+});
+</script>
+</Base>
