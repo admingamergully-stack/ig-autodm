@@ -1,6 +1,6 @@
 # IG AutoDM
 
-[https://ig-autodm.vercel.app](https://ig-autodm.vercel.app) | [GitHub Repository](https://github.com/admingamergully-stack/ig-autodm)
+[https://ig-autodm.pages.dev](https://ig-autodm.pages.dev) | [https://ig-autodm.vercel.app](https://ig-autodm.vercel.app) | [GitHub Repository](https://github.com/admingamergully-stack/ig-autodm)
 
 **Instagram Comment → DM SaaS Platform**
 
