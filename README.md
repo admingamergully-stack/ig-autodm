@@ -1,6 +1,6 @@
 # IG AutoDM
 
-[https://ig-autodm.pages.dev](https://ig-autodm.pages.dev) | [https://ig-autodm.vercel.app](https://ig-autodm.vercel.app) | [GitHub Repository](https://github.com/admingamergully-stack/ig-autodm)
+[https://ig-autodm.pages.dev](https://ig-autodm.pages.dev) | [GitHub Repository](https://github.com/admingamergully-stack/ig-autodm) | saroj1997zc@gmail.com
 
 **Instagram Comment → DM SaaS Platform**
 
@@ -108,7 +108,7 @@ This project draws inspiration from:
 
 - **GitHub Issues**: Use the repository issue tracker
 - **Discussions**: GitHub Discussions for questions
-- **Email**: kaari@example.com (from project config)
+- **Email**: saroj1997zc@gmail.com
 
 ## 📄 License
 
